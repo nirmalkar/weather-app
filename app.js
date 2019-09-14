@@ -1,6 +1,9 @@
 window.addEventListener('load', function () {
   let long;
   let lat;
+  let temperatureDescription = document.querySelector('.temperature-description')
+  let temperatureInDegree = document.querySelector('.temperature-in-degree')
+  let locationTimezone = document.querySelector('.location-timezone')
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function (position) {
       long = position.coords.longitude
@@ -14,7 +17,11 @@ window.addEventListener('load', function () {
         })
         .then(function (data) {
           console.log(data)
-          const { temperature, summery } = data.currently
+          const { temperature, summary } = data.currently
+
+          //set dom elements from the api
+          temperatureInDegree.textContent = temperature
+          temperatureDescription.textContent = summary
         })
     })
 
