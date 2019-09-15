@@ -17,13 +17,23 @@ window.addEventListener('load', function () {
         })
         .then(function (data) {
           console.log(data)
-          const { temperature, summary } = data.currently
-
+          const { temperature, summary, icon } = data.currently
+          const timezone = data.timezone
           //set dom elements from the api
           temperatureInDegree.textContent = temperature
           temperatureDescription.textContent = summary
+          locationTimezone.textContent = timezone
+          // SET ICON
+          setIcon(icon, document.querySelector('.icon'))
+
+
         })
     })
-
+    function setIcon(icon, iconID) {
+      var skycons = new Skycons({ "color": "white" });
+      const currentIcon = icon.replace(/-/g, '_').toUpperCase()
+      skycons.play();
+      return skycons.set(iconID, Skycons[currentIcon])
+    }
   }
 })
